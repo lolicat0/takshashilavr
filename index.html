@@ -3,29 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR Gallery</title>
+    <title>Takshashila University VR Tour</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.4.2/aframe.min.js"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Georgia', serif;
             overflow: hidden;
+            background-color: #f5f5f5;
         }
 
-
+        /* Welcome Screen Animation */
         @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-
 
         @keyframes fadeInUp {
             from {
@@ -37,7 +31,6 @@
                 transform: translateY(0);
             }
         }
-
 
         @keyframes pulse {
             0% {
@@ -54,20 +47,18 @@
             }
         }
 
-
         @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
 
+        /* Welcome Screen */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -86,7 +77,6 @@
             transition: opacity 1s ease-in-out;
             overflow: hidden;
         }
-
 
         #welcome-screen::before {
             content: '';
@@ -118,7 +108,6 @@
             text-align: center;
         }
 
-
         #welcome-subtitle {
             font-size: 1.5em;
             margin-bottom: 45px;
@@ -130,7 +119,6 @@
             animation-fill-mode: forwards;
             animation-delay: 0.5s;
         }
-
 
         #enter-button {
             padding: 15px 45px;
@@ -147,8 +135,8 @@
             animation-delay: 1s;
             position: relative;
             overflow: hidden;
+            font-family: 'Georgia', serif;
         }
-
 
         #enter-button:hover {
             background-color: rgba(255, 255, 255, 0.3);
@@ -166,17 +154,8 @@
             transform: rotate(45deg);
             animation: shine 3s infinite;
         }
-       
-        @keyframes shine {
-            0% {
-                left: -50%;
-            }
-            100% {
-                left: 150%;
-            }
-        }
-       
-        /* Floating particles */
+        
+        /* Particles */
         #particles {
             position: absolute;
             top: 0;
@@ -198,7 +177,6 @@
             transition: background-color 3s ease;
         }
        
-        /* Add a special star-like shape to some particles */
         .particle:nth-child(5n):after {
             content: '';
             position: absolute;
@@ -211,92 +189,143 @@
             border-radius: 50%;
         }
 
-
-        #sidebar {
+        /* Home Page Style */
+        #home-page {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 250px;
+            width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 20px;
+            background: url('https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg') center/cover no-repeat;
             overflow-y: auto;
-            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .home-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
             color: white;
         }
 
-
-        #sidebar.hidden {
-            transform: translateX(-290px);
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
+        .header p {
+            font-size: 1.3em;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+        }
 
-        #toggle-sidebar {
+        .category-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 40px 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category {
+            width: 350px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .category-header {
+            background-color: #d35f3b;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-content {
+            padding: 20px;
+        }
+
+        .location-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .location-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .location-item:hover {
+            color: #d35f3b;
+            transform: translateX(5px);
+        }
+
+        .back-to-home {
             position: fixed;
-            left: 255px;
-            top: 15px;
-            background-color: rgba(0, 0, 0, 0.5);
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
             border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-radius: 30px;
             cursor: pointer;
             z-index: 1001;
-            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            display: none;
         }
 
-
-        #toggle-sidebar.hidden {
-            left: 15px;
+        .back-to-home:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
-
-        .sidebar-section {
-            margin-bottom: 20px;
-        }
-
-
-        .sidebar-title {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding-bottom: 5px;
-        }
-
-
-        .media-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 8px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 5px;
+        .media-info {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
-            text-align: left;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            padding: 10px 20px;
+            border-radius: 20px;
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-family: 'Georgia', serif;
         }
 
-
-        .media-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        .media-info.visible {
+            opacity: 1;
         }
-
-
-        .media-btn.active {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
 
         #control-panel {
             position: fixed;
@@ -307,7 +336,6 @@
             gap: 15px;
             z-index: 999;
         }
-
 
         .control-btn {
             width: 50px;
@@ -322,8 +350,8 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: bold;
+            font-family: 'Georgia', serif;
         }
-
 
         .control-btn:hover {
             background-color: rgba(0, 0, 0, 0.8);
@@ -350,77 +378,14 @@
             background-color: #4CAF50;
         }
 
-
         #vr-container {
             position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
+            display: none;
         }
-
-
-        .media-info {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            z-index: 998;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-
-        .media-info.visible {
-            opacity: 1;
-        }
-
-
-        /* Audio control styles */
-        #audio-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1002;
-            display: flex;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 8px 15px;
-            border-radius: 20px;
-        }
-
-
-        #audio-toggle {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 10px;
-            font-size: 16px;
-        }
-
-
-        #audio-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-
-        #audio-status {
-            color: white;
-            font-size: 0.9em;
-            margin-right: 5px;
-        }
-
 
         /* Panoraven iframe container */
         #panoraven-container {
@@ -451,54 +416,77 @@
         <img id="welcome-logo" src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742200836/download_1_1_ydyvjy.png" alt="Takshashila University Logo">
         <h1 id="welcome-title">Welcome to Takshashila University</h1>
         <p id="welcome-subtitle">Explore our University in virtual reality.</p>
-        <button id="enter-button">Enter Gallery</button>
+        <button id="enter-button">Enter Virtual Tour</button>
     </div>
 
-
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <h2 style="text-align: center; margin-top: 0;">Media Gallery</h2>
-       
-        <div class="sidebar-section">
-            <div class="sidebar-title">Images</div>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg">Entrance</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112653_887_10000_dtxawb.jpg">Campus View</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112507_504_10000_nbzgqq.jpg">Multi Purpose Hall</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190479/20250314_112752_136_nft24p.jpg">Office Room</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190479/20250314_112821_789_ldevcf.jpg">Library</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113242_868_s5ri4a.jpg">Control of Excellence</button>
-        <div class="sidebar-section">
-            <div class="sidebar-title">Engineering</div>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113204_565_10000_zzejmt.jpg">Class Room</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190498/20250314_113053_900_aiiedd.jpg">IBM laboratory</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113009_249_10000_jijfls.jpg">EEE laboratory</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190561/20250314_113028_576_fu3fov.jpg">ECE Laboratory</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113132_870_10000_me7txx.jpg">Chemistry Laboratory</button>
+    <!-- Home Page -->
+    <div id="home-page">
+        <div class="home-overlay">
+            <div class="header">
+                <h1>Takshashila University Virtual Tour</h1>
+                <p>Discover our campus facilities through an immersive virtual experience</p>
             </div>
-         <div class="sidebar-section">
-            <div class="sidebar-title">Medical</div>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190542/20250314_113306_122_uzihgx.jpg">Medical block </button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113334_913_ahgnlm.jpg">OPD Section</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113409_929_xwasfs.jpg">Consultaion Room</button> 
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190541/20250314_113448_611_klf6ox.jpg">Casuality Room</button>
+            
+            <div class="category-container">
+                <!-- Main Campus Category -->
+                <div class="category">
+                    <div class="category-header">Main Campus</div>
+                    <div class="category-content">
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg">Entrance</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112653_887_10000_dtxawb.jpg">Campus View</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112507_504_10000_nbzgqq.jpg">Multi Purpose Hall</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190479/20250314_112752_136_nft24p.jpg">Office Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190479/20250314_112821_789_ldevcf.jpg">Library</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113242_868_s5ri4a.jpg">Center of Excellence</div>
+                    </div>
+                </div>
+
+                <!-- Engineering Category -->
+                <div class="category">
+                    <div class="category-header">Engineering</div>
+                    <div class="category-content">
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113204_565_10000_zzejmt.jpg">Class Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190498/20250314_113053_900_aiiedd.jpg">IBM Laboratory</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113009_249_10000_jijfls.jpg">EEE Laboratory</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190561/20250314_113028_576_fu3fov.jpg">ECE Laboratory</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113132_870_10000_me7txx.jpg">Chemistry Laboratory</div>
+                    </div>
+                </div>
+
+                <!-- Medical Category -->
+                <div class="category">
+                    <div class="category-header">Medical</div>
+                    <div class="category-content">
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190542/20250314_113306_122_uzihgx.jpg">Medical Block</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113334_913_ahgnlm.jpg">OPD Section</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113409_929_xwasfs.jpg">Consultation Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190541/20250314_113448_611_klf6ox.jpg">Casualty Room</div>
+                    </div>
+                </div>
+
+                <!-- Nursing Category -->
+                <div class="category">
+                    <div class="category-header">Nursing</div>
+                    <div class="category-content">
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190561/20250314_113853_523_wrmku3.jpg">Staff Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191504/20250314_113820_631_10000_bhrhnd.jpg">Gallery Classroom</div>
+                    </div>
+                </div>
+
+                <!-- Hostel Facilities Category -->
+                <div class="category">
+                    <div class="category-header">Hostel Facilities</div>
+                    <div class="category-content">
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190540/20250314_113614_044_kq1rke.jpg">Hostel Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190541/20250314_113541_844_vgwsxt.jpg">Corridor View</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113727_795_10000_izmyev.jpg">Mess Canteen</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="sidebar-section">
-            <div class="sidebar-title">Nursing</div>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190561/20250314_113853_523_wrmku3.jpg">Staff Room</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191504/20250314_113820_631_10000_bhrhnd.jpg">Gallery ClassRoom</button>
-        </div> 
-        <div class="sidebar-section">
-            <div class="sidebar-title">Hostel facilities</div>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190540/20250314_113614_044_kq1rke.jpg">Hostel Room</button>
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190541/20250314_113541_844_vgwsxt.jpg">Corridor View</button> 
-            <button class="media-btn" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113727_795_10000_izmyev.jpg">Mess Canteen</button>
-        </div>   
-        </div>
-       
-        
     </div>
-   
-    <button id="toggle-sidebar">☰</button>
+
+    <button id="back-to-home" class="back-to-home">← Back to Home</button>
    
     <div id="media-info" class="media-info">Currently viewing: <span id="current-media-name"></span></div>
    
@@ -506,13 +494,6 @@
         <button id="prev-btn" class="control-btn">←</button>
         <button id="vr-toggle" class="control-btn">VR</button>
         <button id="next-btn" class="control-btn">→</button>
-    </div>
-
-
-    <!-- Audio Controls -->
-    <div id="audio-controls">
-        <button id="audio-toggle">♫</button>
-        <span id="audio-status">Audio On</span>
     </div>
    
     <!-- Panoraven Container -->
@@ -525,18 +506,6 @@
         <a-scene embedded vr-mode-ui="enabled: true">
             <a-assets>
                 <img id="welcome-bg" src="https://source.unsplash.com/random/1920x1080/?vr,gallery" alt="Welcome Background">
-                <audio id="welcome-audio" preload="auto">
-                    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_bb630cc098.mp3?filename=welcome-to-the-jungle-111372.mp3" type="audio/mpeg">
-                </audio>
-                <audio id="background-music" loop preload="auto">
-                    <source src="https://cdn.pixabay.com/download/audio/2021/11/23/audio_cb15a7b1fe.mp3?filename=ambient-piano-amp-strings-10711.mp3" type="audio/mpeg">
-                </audio>
-               
-                <!-- Video assets -->
-                <video id="video-ocean" src="https://cdn.pixabay.com/vimeo/328940142/ocean-24216.mp4?width=640&hash=516f842331b3c3a0f185e3f3bd3eb0c25b2ebc69" loop preload="auto"></video>
-                <video id="video-drone" src="https://cdn.pixabay.com/vimeo/190499546/drone-4788.mp4?width=640&hash=a65d85be15a63232fc3cf13cb5ce5b2338c4efe1" loop preload="auto"></video>
-                <video id="video-waterfall" src="https://cdn.pixabay.com/vimeo/357820334/waterfall-30973.mp4?width=640&hash=79fc4d22e7391c40f8e0d7c61dc823fbd4cf5194" loop preload="auto"></video>
-                <video id="video-storm" src="https://cdn.pixabay.com/vimeo/529949678/storm-69910.mp4?width=640&hash=f4507cb8d8d16f8319ed361fa16ac1c01a0feafe" loop preload="auto"></video>
             </a-assets>
            
             <!-- Initial scene with a 360-degree image -->
@@ -562,9 +531,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const welcomeScreen = document.getElementById('welcome-screen');
             const enterButton = document.getElementById('enter-button');
-            const sidebar = document.getElementById('sidebar');
-            const toggleSidebar = document.getElementById('toggle-sidebar');
-            const mediaButtons = document.querySelectorAll('.media-btn');
+            const homePage = document.getElementById('home-page');
+            const backToHome = document.getElementById('back-to-home');
+            const locationItems = document.querySelectorAll('.location-item');
             const mediaInfo = document.getElementById('media-info');
             const currentMediaName = document.getElementById('current-media-name');
             const prevBtn = document.getElementById('prev-btn');
@@ -572,73 +541,43 @@
             const vrToggle = document.getElementById('vr-toggle');
             const sky = document.getElementById('sky');
             const videosphere = document.getElementById('videosphere');
-            const welcomeAudio = document.getElementById('welcome-audio');
-            const backgroundMusic = document.getElementById('background-music');
-            const audioToggle = document.getElementById('audio-toggle');
-            const audioStatus = document.getElementById('audio-status');
             const panoravenContainer = document.getElementById('panoraven-container');
             const panoravenIframe = document.getElementById('panoraven-iframe');
             const vrContainer = document.getElementById('vr-container');
+            const controlPanel = document.getElementById('control-panel');
            
             let currentMediaIndex = -1;
-            let allMedia = Array.from(mediaButtons);
-            let audioEnabled = true;
-           
-            // Play welcome audio when it's loaded
-            welcomeAudio.addEventListener('canplaythrough', function() {
-                console.log('Welcome audio loaded and ready to play');
-            });
+            let allMedia = Array.from(locationItems);
            
             // Handle welcome screen
             enterButton.addEventListener('click', function() {
                 welcomeScreen.style.opacity = '0';
                
-                // Play welcome audio with voice greeting
-                welcomeAudio.play()
-                    .then(() => {
-                        console.log('Welcome audio playing');
-                        // Start background music after welcome message
-                        welcomeAudio.addEventListener('ended', function() {
-                            if (audioEnabled) {
-                                backgroundMusic.play()
-                                    .then(() => console.log('Background music playing'))
-                                    .catch(e => console.error('Error playing background music:', e));
-                            }
-                        });
-                    })
-                    .catch(e => console.error('Error playing welcome audio:', e));
-               
                 setTimeout(() => {
                     welcomeScreen.style.display = 'none';
+                    homePage.style.display = 'block';
                 }, 1000);
             });
            
-            // Audio toggle
-            audioToggle.addEventListener('click', function() {
-                audioEnabled = !audioEnabled;
-               
-                if (audioEnabled) {
-                    backgroundMusic.play();
-                    audioStatus.textContent = 'Audio On';
-                    audioToggle.innerHTML = '♫';
-                } else {
-                    backgroundMusic.pause();
-                    audioStatus.textContent = 'Audio Off';
-                    audioToggle.innerHTML = '♪';
-                }
-            });
-           
-            // Toggle sidebar
-            toggleSidebar.addEventListener('click', function() {
-                sidebar.classList.toggle('hidden');
-                toggleSidebar.classList.toggle('hidden');
-            });
-           
-            // Handle media selection
-            mediaButtons.forEach((button, index) => {
-                button.addEventListener('click', function() {
+            // Handle location item clicks
+            locationItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
                     loadMedia(index);
+                    homePage.style.display = 'none';
+                    vrContainer.style.display = 'block';
+                    backToHome.style.display = 'block';
+                    controlPanel.style.display = 'flex';
                 });
+            });
+           
+            // Back to home button
+            backToHome.addEventListener('click', function() {
+                homePage.style.display = 'block';
+                vrContainer.style.display = 'none';
+                panoravenContainer.classList.remove('active');
+                backToHome.style.display = 'none';
+                controlPanel.style.display = 'none';
+                mediaInfo.classList.remove('visible');
             });
            
             // Load media function
@@ -653,10 +592,10 @@
                 sky.setAttribute('visible', 'true');
                 videosphere.setAttribute('visible', 'false');
                
-                // Remove active class from all buttons
-                mediaButtons.forEach(btn => btn.classList.remove('active'));
+                // Remove active class from all items
+                locationItems.forEach(item => item.classList.remove('active'));
                
-                // Add active class to current button
+                // Add active class to current item
                 allMedia[index].classList.add('active');
                
                 const mediaType = allMedia[index].getAttribute('data-type');
@@ -714,7 +653,7 @@
                     // Close Panoraven view and show last A-Frame content
                     panoravenContainer.classList.remove('active');
                     vrContainer.style.display = 'block';
-                    loadMedia(0); // Load the first regular image
+                    loadMedia(currentMediaIndex); // Reload current media
                     alert('Switched to A-Frame content for VR mode');
                     return;
                 }
@@ -729,81 +668,22 @@
            
             // Keyboard navigation
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    loadMedia(currentMediaIndex - 1);
-                } else if (e.key === 'ArrowRight') {
-                    loadMedia(currentMediaIndex + 1);
-                } else if (e.key === 'Escape') {
-                    const scene = document.querySelector('a-scene');
-                    if (scene.is('vr-mode')) {
-                        scene.exitVR();
+                // Only handle keyboard events when in VR container mode
+                if (vrContainer.style.display === 'block') {
+                    if (e.key === 'ArrowLeft') {
+                        loadMedia(currentMediaIndex - 1);
+                    } else if (e.key === 'ArrowRight') {
+                        loadMedia(currentMediaIndex + 1);
+                    } else if (e.key === 'Escape') {
+                        const scene = document.querySelector('a-scene');
+                        if (scene.is('vr-mode')) {
+                            scene.exitVR();
+                        } else {
+                            backToHome.click();
+                        }
                     }
-                } else if (e.key === 'M' || e.key === 'm') {
-                    // Toggle audio with M key
-                    audioToggle.click();
                 }
             });
-           
-            // Auto-hide sidebar on mobile
-            function checkMobile() {
-                if (window.innerWidth < 768) {
-                    sidebar.classList.add('hidden');
-                    toggleSidebar.classList.add('hidden');
-                } else {
-                    sidebar.classList.remove('hidden');
-                    toggleSidebar.classList.remove('hidden');
-                }
-            }
-           
-            window.addEventListener('resize', checkMobile);
-            checkMobile(); // Check on load
-           
-            // Add speech synthesis welcome
-            function speakWelcome() {
-                const welcomeMessage = "Welcome to the VR Gallery. Click on any image in the sidebar to view it in 360 degrees. Press VR button to enter virtual reality mode.";
-               
-                // Check if browser supports speech synthesis
-                if ('speechSynthesis' in window) {
-                    const utterance = new SpeechSynthesisUtterance(welcomeMessage);
-                    utterance.volume = 0.8;
-                    utterance.rate = 0.9;
-                    utterance.pitch = 1.0;
-                   
-                    // Get available voices
-                    let voices = window.speechSynthesis.getVoices();
-                   
-                    // If voices not loaded yet, wait for them
-                    // If voices not loaded yet, wait for them
-                    if (voices.length === 0) {
-                        window.speechSynthesis.addEventListener('voiceschanged', function() {
-                            voices = window.speechSynthesis.getVoices();
-                            setVoice();
-                        });
-                    } else {
-                        setVoice();
-                    }
-                   
-                    function setVoice() {
-                        // Try to find a good English voice
-                        const preferredVoice = voices.find(voice =>
-                            voice.name.includes('Google') && voice.name.includes('English') ||
-                            voice.name.includes('Microsoft') && voice.name.includes('English')
-                        );
-                       
-                        if (preferredVoice) {
-                            utterance.voice = preferredVoice;
-                        }
-                       
-                        // Speak the welcome message after the welcome screen disappears
-                        setTimeout(() => {
-                            window.speechSynthesis.speak(utterance);
-                        }, 1200);
-                    }
-                }
-            }
-           
-            // Attach to enter button
-            enterButton.addEventListener('click', speakWelcome);
            
             // Create animated particles
             function createParticles() {
@@ -879,13 +759,14 @@
                     vrToggle.title = 'VR is not supported in your browser';
                 }
             }
-           
-            // Initialize particles
+            
+            // Initialize 
             createParticles();
-           
-            // Check VR support
             checkVRSupport();
+            
+            // Hide control panel initially
+            controlPanel.style.display = 'none';
         });
     </script>
 </body>
-</html>
+</html> 
