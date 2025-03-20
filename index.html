@@ -511,14 +511,10 @@
             <!-- Initial scene with a 360-degree image -->
             <a-sky id="sky" src="#welcome-bg" rotation="0 -90 0"></a-sky>
            
-            <!-- Camera with controls -->
+           <!-- Camera with controls (no cursor) -->
             <a-entity id="rig" position="0 1.6 0">
                 <a-camera look-controls wasd-controls="acceleration: 100">
-                    <a-entity cursor="fuse: true; fuseTimeout: 500"
-                        position="0 0 -1"
-                        geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                        material="color: white; shader: flat">
-                    </a-entity>
+                    <!-- Cursor removed -->
                 </a-camera>
             </a-entity>
            
