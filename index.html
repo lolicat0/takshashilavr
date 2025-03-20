@@ -505,11 +505,11 @@
     <div id="vr-container">
         <a-scene embedded vr-mode-ui="enabled: true">
             <a-assets>
-                <img id="welcome-bg" src="https://source.unsplash.com/random/1920x1080/?vr,gallery" alt="Welcome Background">
+                <img id="welcome-bg" src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg" alt="Welcome Background" crossorigin="anonymous">
             </a-assets>
            
             <!-- Initial scene with a 360-degree image -->
-            <a-sky id="sky" src="#welcome-bg" rotation="0 -90 0"></a-sky>
+            <a-sky id="sky" color="#222222" rotation="0 -90 0"></a-sky>
            
             <!-- Camera with controls (no cursor) -->
             <a-entity id="rig" position="0 1.6 0">
@@ -544,6 +544,7 @@
            
             let currentMediaIndex = -1;
             let allMedia = Array.from(locationItems);
+            let preloadedImages = {};
            
             // Handle welcome screen
             enterButton.addEventListener('click', function() {
@@ -558,11 +559,11 @@
             // Handle location item clicks
             locationItems.forEach((item, index) => {
                 item.addEventListener('click', function() {
-                    loadMedia(index);
                     homePage.style.display = 'none';
                     vrContainer.style.display = 'block';
                     backToHome.style.display = 'block';
                     controlPanel.style.display = 'flex';
+                    loadMedia(index);
                 });
             });
            
@@ -596,6 +597,15 @@
                
                 const mediaType = allMedia[index].getAttribute('data-type');
                 const mediaName = allMedia[index].textContent;
+                
+                // Update media info immediately
+                currentMediaName.textContent = mediaName;
+                mediaInfo.classList.add('visible');
+                
+                // Hide media info after 3 seconds
+                setTimeout(() => {
+                    mediaInfo.classList.remove('visible');
+                }, 3000);
                
                 // Handle different media types
                 if (mediaType === 'panoraven') {
@@ -619,34 +629,56 @@
                     // Handle regular images
                     const mediaSrc = allMedia[index].getAttribute('data-src');
                     
-                    // Create a new image to preload it
+                    // Set a default background while loading
+                    sky.setAttribute('color', '#222222');
+                    
+                    // Directly set the source to the sky element
+                    // This is a more direct approach that often works better
+                    sky.setAttribute('src', mediaSrc);
+                    
+                    // Create a new image to preload it as a backup approach
                     const img = new Image();
+                    
+                    // Setup load handler
                     img.onload = function() {
-                        // Once loaded, set the sky source
-                        sky.setAttribute('src', mediaSrc);
-                        sky.setAttribute('visible', 'true');
-                        videosphere.setAttribute('visible', 'false');
+                        // Once loaded, we already have the image displayed
+                        // Just remove the color attribute to let the image show through
+                        sky.removeAttribute('color');
+                        
+                        // If we're not seeing the image, try this alternative approach
+                        if (!preloadedImages[mediaSrc]) {
+                            preloadedImages[mediaSrc] = true;
+                            
+                            // Create asset ID
+                            const assetId = 'img-' + Math.random().toString(36).substr(2, 9);
+                            
+                            // Add to assets
+                            const assetImg = document.createElement('img');
+                            assetImg.id = assetId;
+                            assetImg.setAttribute('src', mediaSrc);
+                            assetImg.setAttribute('crossorigin', 'anonymous');
+                            document.querySelector('a-assets').appendChild(assetImg);
+                            
+                            // Wait a brief moment to ensure asset is registered
+                            setTimeout(() => {
+                                // Reference the asset by ID in the sky
+                                sky.setAttribute('src', '#' + assetId);
+                            }, 100);
+                        }
                     };
                     
-                    // Set the source to start loading
-                    img.src = mediaSrc;
+                    // Handle errors
+                    img.onerror = function() {
+                        console.error('Error loading image:', mediaSrc);
+                        // Fallback - try without crossorigin
+                        sky.setAttribute('src', mediaSrc);
+                        sky.removeAttribute('color');
+                    };
                     
-                    // Also update the a-assets section with this image
-                    const assetImg = document.createElement('img');
-                    const assetId = 'img-' + Math.random().toString(36).substr(2, 9);
-                    assetImg.id = assetId;
-                    assetImg.src = mediaSrc;
-                    document.querySelector('a-assets').appendChild(assetImg);
+                    // Start loading the image
+                    img.crossOrigin = 'anonymous';
+                    img.src = mediaSrc;
                 }
-               
-                // Show media info
-                currentMediaName.textContent = mediaName;
-                mediaInfo.classList.add('visible');
-               
-                // Hide media info after 3 seconds
-                setTimeout(() => {
-                    mediaInfo.classList.remove('visible');
-                }, 3000);
             }
            
             // Previous and Next buttons
@@ -782,6 +814,16 @@
             // Preload the background image for home page for better performance
             const preloadHomeBackground = new Image();
             preloadHomeBackground.src = 'https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg';
+            
+            // Force CORS for all images
+            document.querySelectorAll('a-assets img').forEach(img => {
+                img.setAttribute('crossorigin', 'anonymous');
+            });
+            
+            // A-Frame scene loaded handler
+            document.querySelector('a-scene').addEventListener('loaded', function() {
+                console.log('A-Frame scene loaded successfully');
+            });
         });
     </script>
 </body>
