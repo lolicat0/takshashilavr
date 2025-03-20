@@ -511,7 +511,7 @@
             <!-- Initial scene with a 360-degree image -->
             <a-sky id="sky" src="#welcome-bg" rotation="0 -90 0"></a-sky>
            
-           <!-- Camera with controls (no cursor) -->
+            <!-- Camera with controls (no cursor) -->
             <a-entity id="rig" position="0 1.6 0">
                 <a-camera look-controls wasd-controls="acceleration: 100">
                     <!-- Cursor removed -->
@@ -618,9 +618,25 @@
                 } else {
                     // Handle regular images
                     const mediaSrc = allMedia[index].getAttribute('data-src');
-                    sky.setAttribute('src', mediaSrc);
-                    sky.setAttribute('visible', 'true');
-                    videosphere.setAttribute('visible', 'false');
+                    
+                    // Create a new image to preload it
+                    const img = new Image();
+                    img.onload = function() {
+                        // Once loaded, set the sky source
+                        sky.setAttribute('src', mediaSrc);
+                        sky.setAttribute('visible', 'true');
+                        videosphere.setAttribute('visible', 'false');
+                    };
+                    
+                    // Set the source to start loading
+                    img.src = mediaSrc;
+                    
+                    // Also update the a-assets section with this image
+                    const assetImg = document.createElement('img');
+                    const assetId = 'img-' + Math.random().toString(36).substr(2, 9);
+                    assetImg.id = assetId;
+                    assetImg.src = mediaSrc;
+                    document.querySelector('a-assets').appendChild(assetImg);
                 }
                
                 // Show media info
@@ -762,6 +778,10 @@
             
             // Hide control panel initially
             controlPanel.style.display = 'none';
+            
+            // Preload the background image for home page for better performance
+            const preloadHomeBackground = new Image();
+            preloadHomeBackground.src = 'https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg';
         });
     </script>
 </body>
