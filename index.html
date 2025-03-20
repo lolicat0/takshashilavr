@@ -197,7 +197,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg') center/cover no-repeat;
+            background: url('https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191502/20250314_112730_211_10000_zrecvd.jpg') center/cover no-repeat;
             overflow-y: auto;
             z-index: 1000;
         }
@@ -205,10 +205,11 @@
         .home-overlay {
             background-color: rgba(0, 0, 0, 0.7);
             width: 100%;
-            height: 100%;
+            min-height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-bottom: 40px;
         }
 
         .header {
@@ -236,7 +237,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            padding: 0 40px 60px 40px;
+            padding: 0 40px;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -276,6 +277,7 @@
             border-bottom: 1px solid #eee;
             cursor: pointer;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .location-item:last-child {
@@ -302,6 +304,7 @@
             z-index: 1001;
             font-family: 'Georgia', serif;
             display: none;
+            transition: background-color 0.3s ease;
         }
 
         .back-to-home:hover {
@@ -413,7 +416,7 @@
     <!-- Welcome Screen -->
     <div id="welcome-screen">
         <div id="particles"></div>
-        <img id="welcome-logo" src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742200836/download_1_1_ydyvjy.png" alt="Takshashila University Logo">
+        <img id="welcome-logo" src="https://res.cloudinary.com/drgpipjhr/image/upload/w_360/v1742200836/download_1_1_ydyvjy.png" alt="Takshashila University Logo">
         <h1 id="welcome-title">Welcome to Takshashila University</h1>
         <p id="welcome-subtitle">Explore our University in virtual reality.</p>
         <button id="enter-button">Enter Virtual Tour</button>
@@ -432,12 +435,12 @@
                 <div class="category">
                     <div class="category-header">Main Campus</div>
                     <div class="category-content">
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112730_211_10000_zrecvd.jpg">Entrance</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112653_887_10000_dtxawb.jpg">Campus View</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191502/20250314_112507_504_10000_nbzgqq.jpg">Multi Purpose Hall</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190479/20250314_112752_136_nft24p.jpg">Office Room</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190479/20250314_112821_789_ldevcf.jpg">Library</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113242_868_s5ri4a.jpg">Center of Excellence</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191502/20250314_112730_211_10000_zrecvd.jpg">Entrance</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191502/20250314_112653_887_10000_dtxawb.jpg">Campus View</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191502/20250314_112507_504_10000_nbzgqq.jpg">Multi Purpose Hall</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190479/20250314_112752_136_nft24p.jpg">Office Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190479/20250314_112821_789_ldevcf.jpg">Library</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190544/20250314_113242_868_s5ri4a.jpg">Center of Excellence</div>
                     </div>
                 </div>
 
@@ -445,11 +448,11 @@
                 <div class="category">
                     <div class="category-header">Engineering</div>
                     <div class="category-content">
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113204_565_10000_zzejmt.jpg">Class Room</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190498/20250314_113053_900_aiiedd.jpg">IBM Laboratory</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113009_249_10000_jijfls.jpg">EEE Laboratory</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190561/20250314_113028_576_fu3fov.jpg">ECE Laboratory</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113132_870_10000_me7txx.jpg">Chemistry Laboratory</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191503/20250314_113204_565_10000_zzejmt.jpg">Class Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190498/20250314_113053_900_aiiedd.jpg">IBM Laboratory</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191503/20250314_113009_249_10000_jijfls.jpg">EEE Laboratory</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190561/20250314_113028_576_fu3fov.jpg">ECE Laboratory</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191503/20250314_113132_870_10000_me7txx.jpg">Chemistry Laboratory</div>
                     </div>
                 </div>
 
@@ -457,10 +460,10 @@
                 <div class="category">
                     <div class="category-header">Medical</div>
                     <div class="category-content">
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190542/20250314_113306_122_uzihgx.jpg">Medical Block</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113334_913_ahgnlm.jpg">OPD Section</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190544/20250314_113409_929_xwasfs.jpg">Consultation Room</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190541/20250314_113448_611_klf6ox.jpg">Casualty Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190542/20250314_113306_122_uzihgx.jpg">Medical Block</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190544/20250314_113334_913_ahgnlm.jpg">OPD Section</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190544/20250314_113409_929_xwasfs.jpg">Consultation Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190541/20250314_113448_611_klf6ox.jpg">Casualty Room</div>
                     </div>
                 </div>
 
@@ -468,8 +471,8 @@
                 <div class="category">
                     <div class="category-header">Nursing</div>
                     <div class="category-content">
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190561/20250314_113853_523_wrmku3.jpg">Staff Room</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191504/20250314_113820_631_10000_bhrhnd.jpg">Gallery Classroom</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190561/20250314_113853_523_wrmku3.jpg">Staff Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191504/20250314_113820_631_10000_bhrhnd.jpg">Gallery Classroom</div>
                     </div>
                 </div>
 
@@ -477,9 +480,9 @@
                 <div class="category">
                     <div class="category-header">Hostel Facilities</div>
                     <div class="category-content">
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190540/20250314_113614_044_kq1rke.jpg">Hostel Room</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742190541/20250314_113541_844_vgwsxt.jpg">Corridor View</div>
-                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/v1742191503/20250314_113727_795_10000_izmyev.jpg">Mess Canteen</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190540/20250314_113614_044_kq1rke.jpg">Hostel Room</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742190541/20250314_113541_844_vgwsxt.jpg">Corridor View</div>
+                        <div class="location-item" data-type="image" data-src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191503/20250314_113727_795_10000_izmyev.jpg">Mess Canteen</div>
                     </div>
                 </div>
             </div>
@@ -503,9 +506,9 @@
    
     <!-- A-Frame scene for VR -->
     <div id="vr-container">
-        <a-scene embedded vr-mode-ui="enabled: true">
+        <a-scene embedded vr-mode-ui="enabled: true" loading-screen="enabled: false">
             <a-assets>
-                <img id="welcome-bg" src="https://source.unsplash.com/random/1920x1080/?vr,gallery" alt="Welcome Background">
+                <img id="welcome-bg" src="https://res.cloudinary.com/drgpipjhr/image/upload/w_1920/v1742191502/20250314_112730_211_10000_zrecvd.jpg" alt="Welcome Background">
             </a-assets>
            
             <!-- Initial scene with a 360-degree image -->
@@ -522,13 +525,14 @@
                 </a-camera>
             </a-entity>
            
-            <!-- Video plane for video playback -->
+            <!-- Video sphere for video playback -->
             <a-videosphere id="videosphere" visible="false"></a-videosphere>
         </a-scene>
     </div>
    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
             const welcomeScreen = document.getElementById('welcome-screen');
             const enterButton = document.getElementById('enter-button');
             const homePage = document.getElementById('home-page');
@@ -548,11 +552,10 @@
            
             let currentMediaIndex = -1;
             let allMedia = Array.from(locationItems);
-           
+            
             // Handle welcome screen
             enterButton.addEventListener('click', function() {
                 welcomeScreen.style.opacity = '0';
-               
                 setTimeout(() => {
                     welcomeScreen.style.display = 'none';
                     homePage.style.display = 'block';
@@ -563,10 +566,6 @@
             locationItems.forEach((item, index) => {
                 item.addEventListener('click', function() {
                     loadMedia(index);
-                    homePage.style.display = 'none';
-                    vrContainer.style.display = 'block';
-                    backToHome.style.display = 'block';
-                    controlPanel.style.display = 'flex';
                 });
             });
            
@@ -585,7 +584,7 @@
                 if (index < 0 || index >= allMedia.length) return;
                
                 currentMediaIndex = index;
-               
+                
                 // Reset all containers
                 panoravenContainer.classList.remove('active');
                 vrContainer.style.display = 'block';
@@ -600,6 +599,13 @@
                
                 const mediaType = allMedia[index].getAttribute('data-type');
                 const mediaName = allMedia[index].textContent;
+                const mediaSrc = allMedia[index].getAttribute('data-src');
+                
+                // Hide home page and show VR content
+                homePage.style.display = 'none';
+                vrContainer.style.display = 'block';
+                backToHome.style.display = 'block';
+                controlPanel.style.display = 'flex';
                
                 // Handle different media types
                 if (mediaType === 'panoraven') {
@@ -621,7 +627,6 @@
                     }
                 } else {
                     // Handle regular images
-                    const mediaSrc = allMedia[index].getAttribute('data-src');
                     sky.setAttribute('src', mediaSrc);
                     sky.setAttribute('visible', 'true');
                     videosphere.setAttribute('visible', 'false');
@@ -715,7 +720,6 @@
                     particlesContainer.appendChild(particle);
                 }
             }
-           
             // After document load, check VR compatibility
             function checkVRSupport() {
                 if (navigator.xr) {
@@ -766,7 +770,21 @@
             
             // Hide control panel initially
             controlPanel.style.display = 'none';
+            
+            // Optimize image loading in the background
+            function optimizeImages() {
+                // Simply add width parameter to make sure we get properly sized images
+                allMedia.forEach(item => {
+                    const src = item.getAttribute('data-src');
+                    if (src && !src.includes('w_')) {
+                        item.setAttribute('data-src', src.replace('/upload/', '/upload/w_1920/'));
+                    }
+                });
+            }
+            
+            // Quietly optimize images
+            optimizeImages();
         });
     </script>
 </body>
-</html> 
+</html>
